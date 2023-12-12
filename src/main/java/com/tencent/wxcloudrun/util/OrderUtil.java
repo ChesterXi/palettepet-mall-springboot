@@ -1,6 +1,5 @@
 package com.tencent.wxcloudrun.util;
 
-import com.sun.tools.corba.se.idl.constExpr.Or;
 import com.tencent.wxcloudrun.model.Order;
 
 import java.util.ArrayList;
