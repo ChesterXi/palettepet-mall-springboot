@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tencent.wxcloudrun.dao.GoodsProductMapper">
+
+    <resultMap id="BaseResultMap" type="com.tencent.wxcloudrun.model.GoodsProduct">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="goods_id" jdbcType="BIGINT" property="goodsId" />
+        <result column="goods_name" jdbcType="VARCHAR" property="goodsName"/>
+        <result column="goods_sn" jdbcType="VARCHAR" property="goodsSn"/>
+        <result column="goods_code" jdbcType="VARCHAR" property="goodsCode" />
+        <result column="specification" jdbcType="VARCHAR" property="specification"/>
+        <result column="color" jdbcType="VARCHAR" property="color" />
+        <result column="price" jdbcType="DECIMAL" property="price" />
+        <result column="number" jdbcType="INTEGER" property="number" />
+        <result column="url" jdbcType="VARCHAR" property="url" />
+        <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="deleted" jdbcType="BIT" property="deleted" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, goods_id, goods_name, goods_sn, goods_code, specification, color, price, `number`, url, add_time, update_time, deleted
+    </sql>
+
+    <select id="getGoodsProductByGoodsId" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM palettemall_goods_product
+        WHERE goods_id = #{goodsId} and deleted = 0
+    </select>
+
+    <select id="getGoodsProductById" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM palettemall_goods_product
+        WHERE id = #{id} and deleted = 0
+    </select>
+
+    <update id="addStock" parameterType="map">
+        update palettemall_goods_product
+        set number = number + #{num,jdbcType=INTEGER}, update_time = now()
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="reduceStock" parameterType="map">
+        update palettemall_goods_product
+        set number = number - #{num,jdbcType=INTEGER}, update_time = now()
+        where id = #{id,jdbcType=INTEGER} and number >= #{num,jdbcType=INTEGER}
+    </update>
+
+
+</mapper>

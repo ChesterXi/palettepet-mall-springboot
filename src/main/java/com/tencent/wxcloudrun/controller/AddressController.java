@@ -23,28 +23,28 @@ public class AddressController {
 
     /**
      * 用户收获地址列表
-     * @param userId
+     * @param openId
      * @return 收获地址列表
      */
     @GetMapping("list")
-    public Object list(Integer userId){
+    public Object list(String openId){
 
-        List<Address> addresses = addressService.queryByUserId(userId);
+        List<Address> addresses = addressService.queryByUserId(openId);
         return ResponseUtil.okList(addresses);
     }
 
     /**
      * 收获地址详情
-     * @param userId
+     * @param openId
      * @param id
      * @return
      */
     @GetMapping("detail")
-    public Object detail(Integer userId,Integer id){
-        if(userId == null){
+    public Object detail(String openId,Integer id){
+        if(openId == null){
             return ResponseUtil.unlogin();
         }
-        Address address = addressService.query(userId, id);
+        Address address = addressService.query(openId, id);
         if(address == null){
             return ResponseUtil.badArgumentValue();
         }
@@ -54,13 +54,13 @@ public class AddressController {
 
     /**
      * 添加或更新收获地址
-     * @param userId 用户id
+     * @param openId 用户id
      * @param address 用户收货地址
      * @return 添加或更新操作结果
      */
     @PostMapping("save")
-    public Object save(Integer userId,@RequestBody Address address){
-        if(userId == null){
+    public Object save(String openId,@RequestBody Address address){
+        if(openId == null){
             return ResponseUtil.unlogin();
         }
         Object error = validate(address);
@@ -73,11 +73,11 @@ public class AddressController {
 //                addressService.resetDefault(userId);
 //            }
             address.setId(null);
-            address.setUserId(userId);
+            address.setOpenId(openId);
             addressService.add(address);
         }
         else {
-            Address addressByQuery= addressService.query(userId, address.getId());
+            Address addressByQuery= addressService.query(openId, address.getId());
             if(addressByQuery == null){
                 return ResponseUtil.badArgumentValue();
             }
@@ -85,7 +85,7 @@ public class AddressController {
 //                // 重置其他收货地址的默认选项
 //                addressService.resetDefault(userId);
 //            }
-            address.setUserId(userId);
+            address.setOpenId(openId);
             addressService.update(address);
         }
 
@@ -95,13 +95,13 @@ public class AddressController {
 
     /**
      * 删除收货地址
-     * @param userId
+     * @param openId
      * @param address
      * @return 删除操作结果
      */
     @PostMapping("delete")
-    public Object delete(Integer userId,@RequestBody Address address){
-        if(userId == null){
+    public Object delete(String openId,@RequestBody Address address){
+        if(openId == null){
             return ResponseUtil.unlogin();
         }
         Integer id = address.getId();
@@ -109,7 +109,7 @@ public class AddressController {
         if(id == null){
             return ResponseUtil.badArgument();
         }
-        Address addressByQuery = addressService.query(userId, id);
+        Address addressByQuery = addressService.query(openId, id);
         if(addressByQuery == null){
             return ResponseUtil.badArgumentValue();
         }

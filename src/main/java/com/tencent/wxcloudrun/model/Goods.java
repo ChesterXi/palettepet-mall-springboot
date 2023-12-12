@@ -9,19 +9,19 @@ import java.time.LocalDateTime;
 
 @Data
 public class Goods {
-    private Integer id;
+    private Long id;
 
     //商品编号
     private String goodsSn;
 
     private String name;
 
+    private String goodsCode;
+
     //商品图片列表
     private String[] gallery;
     private String keywords;
 
-    //简介
-    private String brief;
     private Boolean isOnSale;
     private Short sortOrder;
     //商品页面商品图片

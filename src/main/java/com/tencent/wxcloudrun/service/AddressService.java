@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface AddressService {
 
-    Address query(Integer userId,Integer id);
+    Address query(String openId,Integer id);
 
-    List<Address> queryByUserId(Integer userId);
+    List<Address> queryByUserId(String openId);
 
     int add(Address address);
 
@@ -17,6 +17,6 @@ public interface AddressService {
 
     void delete(Integer id);
 
-    void resetDefault(Integer userId);
+    void resetDefault(String openId);
 
 }

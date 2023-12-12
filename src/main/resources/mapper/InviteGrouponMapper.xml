@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tencent.wxcloudrun.dao.InviteGrouponMapper">
+
+    <resultMap id="inviteGrouponMapper" type="com.tencent.wxcloudrun.model.InviteGroupon">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="open_id" jdbcType="VARCHAR" property="openId" />
+        <result column="invite_code" jdbcType="VARCHAR" property="inviteCode" />
+        <result column="discount" jdbcType="DECIMAL" property="discount" />
+        <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="expire_time" jdbcType="TIMESTAMP" property="expireTime" />
+        <result column="deleted" jdbcType="BIT" property="deleted" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, open_id, invite_code, discount, add_time, update_time, expire_time, deleted
+    </sql>
+
+    <select id="getInviteGrouponByInviteCode" resultMap="inviteGrouponMapper">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM palettemall_invite_groupon
+        WHERE invite_code = #{inviteCode}
+    </select>
+
+
+
+
+</mapper>

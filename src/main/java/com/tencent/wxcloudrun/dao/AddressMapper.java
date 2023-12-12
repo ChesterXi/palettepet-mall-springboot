@@ -6,9 +6,9 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface AddressMapper {
-    Address query(@Param("userId") Integer userId, @Param("id") Integer id);
+    Address query(@Param("openId") String openId, @Param("id") Integer id);
 
-    List<Address> queryByUserId(Integer userId);
+    List<Address> queryByUserId(@Param("openId") String openId);
 
     int add(Address address);
 
@@ -16,5 +16,5 @@ public interface AddressMapper {
 
     void logicalDeleteById(Integer id);
 
-    void resetDefault(Integer userId);
+    void resetDefault(String openId);
 }

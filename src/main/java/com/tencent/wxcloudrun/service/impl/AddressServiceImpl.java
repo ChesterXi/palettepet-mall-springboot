@@ -16,13 +16,13 @@ public class AddressServiceImpl implements AddressService {
     private AddressMapper addressMapper;
 
     @Override
-    public Address query(Integer userId, Integer id) {
-        return addressMapper.query(userId, id);
+    public Address query(String openId, Integer id) {
+        return addressMapper.query(openId, id);
     }
 
     @Override
-    public List<Address> queryByUserId(Integer userId) {
-        return addressMapper.queryByUserId(userId);
+    public List<Address> queryByUserId(String openId) {
+        return addressMapper.queryByUserId(openId);
     }
 
     @Override
@@ -44,7 +44,7 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public void resetDefault(Integer userId) {
+    public void resetDefault(String openId) {
 
     }
 }

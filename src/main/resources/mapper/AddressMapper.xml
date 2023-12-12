@@ -5,7 +5,7 @@
     <resultMap id="addressMapper" type="com.tencent.wxcloudrun.model.Address">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="name" jdbcType="VARCHAR" property="name" />
-        <result column="user_id" jdbcType="INTEGER" property="userId" />
+        <result column="open_id" jdbcType="VARCHAR" property="openId" />
         <result column="province" jdbcType="VARCHAR" property="province" />
         <result column="city" jdbcType="VARCHAR" property="city" />
         <result column="county" jdbcType="VARCHAR" property="county" />
@@ -20,7 +20,7 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        id, `name`, user_id, province, city, county, address_detail, area_code, postal_code,
+        id, `name`, open_id, province, city, county, address_detail, area_code, postal_code,
         tel, is_default, add_time, update_time, deleted
     </sql>
 
@@ -28,14 +28,14 @@
         SELECT
         <include refid="Base_Column_List" />
         FROM palettemall_address
-        WHERE id = #{id} and user_id = #{userId} and deleted = 0
+        WHERE id = #{id} and open_id = #{openId} and deleted = 0
     </select>
 
     <select id="queryByUserId" resultMap="addressMapper">
         SELECT
         <include refid="Base_Column_List" />
         FROM palettemall_address
-        WHERE user_id = #{userId} and deleted = 0
+        WHERE open_id = #{openId} and deleted = 0
         ORDER BY id asc
     </select>
 
@@ -45,8 +45,8 @@
             <if test="name != null">
                 `name` = #{name,jdbcType=VARCHAR},
             </if>
-            <if test="userId != null">
-                user_id = #{userId,jdbcType=INTEGER},
+            <if test="openId != null">
+                open_id = #{openId,jdbcType=VARCHAR},
             </if>
             <if test="province != null">
                 province = #{province,jdbcType=VARCHAR},
@@ -95,8 +95,8 @@
             <if test="name != null">
                 `name`,
             </if>
-            <if test="userId != null">
-                user_id,
+            <if test="openId != null">
+                open_id,
             </if>
             <if test="province != null">
                 province,
@@ -136,8 +136,8 @@
             <if test="name != null">
                 #{name,jdbcType=VARCHAR},
             </if>
-            <if test="userId != null">
-                #{userId,jdbcType=INTEGER},
+            <if test="openId != null">
+                #{openId,jdbcType=VARCHAR},
             </if>
             <if test="province != null">
                 #{province,jdbcType=VARCHAR},

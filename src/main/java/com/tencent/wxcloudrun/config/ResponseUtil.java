@@ -145,4 +145,13 @@ public class ResponseUtil {
     public static Object unauthz() {
         return fail(506, "无操作权限");
     }
+    public static Object exitUser() {
+        return fail(507, "用户已存在");
+    }
+    public static Object inviteCodeExpired() {
+        return fail(508, "邀请码已过期");
+    }
+    public static Object unOrderSn(){
+        return fail(509,"原始订单号不存在");
+    }
 }

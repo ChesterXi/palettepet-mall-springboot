@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 public class Address {
     private Integer id;
     private String name;
-    private Integer userId;
+    private String openId;
     private String province;
     private String city;
     private String county;

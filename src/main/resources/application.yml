@@ -3,11 +3,6 @@ server:
 
 
 spring:
-#  datasource:
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://localhost:3306/palettemall?useUnicode=true&characterEncoding=UTF-8
-#    username: palettemall
-#    password: '!jyh7622.@NB'
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://${MYSQL_ADDRESS}/${MYSQL_DATABASE:wx}
