@@ -18,6 +18,7 @@ public class Goods {
 
     private String goodsCode;
 
+    private Integer category;
     //商品图片列表
     private String[] gallery;
     private String keywords;

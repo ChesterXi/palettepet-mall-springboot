@@ -1,6 +1,7 @@
 package com.tencent.wxcloudrun.controller;
 
 
+import com.github.pagehelper.PageInfo;
 import com.tencent.wxcloudrun.config.ResponseUtil;
 import com.tencent.wxcloudrun.model.Goods;
 import com.tencent.wxcloudrun.model.GoodsProduct;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
@@ -28,15 +30,26 @@ public class GoodsController {
     private GoodsProductService goodsProductService;
 
     @GetMapping("list")
-    public Object listGoods(){
+    public Object listGoods(
+            @RequestParam(defaultValue = "1") Integer category,
+            @RequestParam(defaultValue = "0") Boolean isNew,
+            @RequestParam(defaultValue = "0") Boolean isHot,
+            @RequestParam(defaultValue = "1") Integer page,
+            @RequestParam(defaultValue = "10") Integer limit){
         //添加搜索历史
 
         //查询列表数据
-        List<Goods> goodsList = goodsService.getGoodsList();
-        if(goodsList!=null && !goodsList.isEmpty()){
-            return ResponseUtil.ok(goodsList);
-        }
-        return ResponseUtil.serious();
+        List<Goods> goodsList = goodsService.getGoodsList(category,isNew,isHot,page,limit);
+        PageInfo<Goods> pagedList = PageInfo.of(goodsList);
+
+        Map<String, Object> entity = new HashMap<>();
+        entity.put("list", goodsList);
+        entity.put("total", pagedList.getTotal());
+        entity.put("page", pagedList.getPageNum());
+        entity.put("limit", pagedList.getPageSize());
+        entity.put("pages", pagedList.getPages());
+
+        return ResponseUtil.ok(entity);
     }
 
     @GetMapping("detail")
@@ -56,5 +69,11 @@ public class GoodsController {
         data.put("goods",goodsById);
         data.put("productList",goodsProductByGoodsId);
         return ResponseUtil.ok(data);
+    }
+
+    @GetMapping("count")
+    public Object count(){
+        Integer count = goodsService.getGoodsOnSale();
+        return ResponseUtil.ok(count);
     }
 }

@@ -27,7 +27,7 @@ public class UserController {
 
     @PostMapping("add")
     public Object add(@RequestBody String body, HttpServletRequest request){
-        String openId = request.getHeader("X-WX-OPENID");
+        String openId = request.getHeader("x-wx-openid");
         User userByOpenId = userService.getUserByOpenId(openId);
         if(userByOpenId != null){
             return ResponseUtil.exitUser();

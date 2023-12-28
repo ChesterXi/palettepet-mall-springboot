@@ -27,7 +27,7 @@ public class AddressController {
      * @return 收获地址列表
      */
     @GetMapping("list")
-    public Object list(String openId){
+    public Object list( @RequestHeader("x-wx-openid") String openId){
 
         List<Address> addresses = addressService.queryByUserId(openId);
         return ResponseUtil.okList(addresses);
@@ -40,7 +40,7 @@ public class AddressController {
      * @return
      */
     @GetMapping("detail")
-    public Object detail(String openId,Integer id){
+    public Object detail( @RequestHeader("x-wx-openid") String openId,Integer id){
         if(openId == null){
             return ResponseUtil.unlogin();
         }
@@ -59,7 +59,7 @@ public class AddressController {
      * @return 添加或更新操作结果
      */
     @PostMapping("save")
-    public Object save(String openId,@RequestBody Address address){
+    public Object save( @RequestHeader("x-wx-openid") String openId,@RequestBody Address address){
         if(openId == null){
             return ResponseUtil.unlogin();
         }
@@ -100,7 +100,7 @@ public class AddressController {
      * @return 删除操作结果
      */
     @PostMapping("delete")
-    public Object delete(String openId,@RequestBody Address address){
+    public Object delete( @RequestHeader("x-wx-openid") String openId,@RequestBody Address address){
         if(openId == null){
             return ResponseUtil.unlogin();
         }
