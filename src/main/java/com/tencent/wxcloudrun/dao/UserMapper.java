@@ -5,4 +5,5 @@ import com.tencent.wxcloudrun.model.User;
 public interface UserMapper {
     User getUserByOpenId(String openId);
     Integer add(User user);
+    Integer update(User user);
 }

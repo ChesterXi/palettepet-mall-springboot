@@ -8,10 +8,7 @@ import com.tencent.wxcloudrun.service.UserService;
 import com.tencent.wxcloudrun.util.JacksonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -55,7 +52,28 @@ public class UserController {
     }
 
     @PostMapping("update")
-    public Object update(Integer userId,@RequestBody Address address){
-        return new Object();
+    public Object update(@RequestBody String body, @RequestHeader("x-wx-openid") String openId){
+        User userByOpenId = userService.getUserByOpenId(openId);
+        if(userByOpenId == null){
+            return ResponseUtil.userNotExist();
+        }
+        String nickName = JacksonUtil.parseString(body, "nickName");
+        String avatarUrl = JacksonUtil.parseString(body, "avatarUrl");
+        String mobile = JacksonUtil.parseString(body, "mobile");
+        if(nickName == null || avatarUrl == null || mobile == null){
+            return ResponseUtil.badArgument();
+        }
+        userByOpenId.setNickName(nickName);
+        userByOpenId.setAvatarUrl(avatarUrl);
+        userByOpenId.setMobile(mobile);
+        userService.update(userByOpenId);
+
+        Map<Object, Object> result = new HashMap<Object, Object>();
+        result.put("openId",openId);
+        result.put("nickName",nickName);
+        result.put("avatarUrl",avatarUrl);
+        result.put("mobile",mobile);
+
+        return ResponseUtil.ok(result);
     }
 }

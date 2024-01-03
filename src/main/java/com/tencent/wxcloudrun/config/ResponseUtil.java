@@ -154,4 +154,7 @@ public class ResponseUtil {
     public static Object unOrderSn(){
         return fail(509,"原始订单号不存在");
     }
+    public static Object userNotExist() {
+        return fail(510, "用户不存在");
+    }
 }
