@@ -201,7 +201,9 @@ public class OrderSeriveImpl implements OrderService {
             }
         }
         Map<String,Object> resultMap = new HashMap<>();
+        resultMap.put("orderId",order.getId());
         resultMap.put("orderSn",order.getOrderSn());
+        resultMap.put("orderPrice",order.getOrderPrice());
         resultMap.put("payStatus",order.getOrderStatus());
         return resultMap;
     }
@@ -222,6 +224,8 @@ public class OrderSeriveImpl implements OrderService {
         prePayJson.put("out_trade_no",wxPrePayParam.getOrderSn());
         prePayJson.put("spbill_create_ip",ip);
         prePayJson.put("callback_type",2);
+        prePayJson.put("body","PalettePet-宠物服饰");
+//        prePayJson.put("body","测试微信支付");
         prePayJson.put("total_fee",wxPrePayParam.getOrderPrice().setScale(2, RoundingMode.DOWN).intValue());
         Container container = new Container();
         container.setPath(AppConstant.WEB_HOOK_PAY_PATH);
