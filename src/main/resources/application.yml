@@ -5,9 +5,14 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${MYSQL_ADDRESS}/${MYSQL_DATABASE:wx}
-    username: ${MYSQL_USERNAME}
-    password: ${MySQL_PASSWORD}
+    url: jdbc:mysql://localhost:3306/palettemall?useUnicode=true&characterEncoding=UTF-8
+    username: palettemall
+    password: '!jyh7622.@NB'
+  #  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://${MYSQL_ADDRESS}/${MYSQL_DATABASE:wx}
+#    username: ${MYSQL_USERNAME}
+#    password: ${MySQL_PASSWORD}
   mvc:
     view:
       suffix: .html
@@ -22,3 +27,11 @@ logging:
   level:
     root: INFO
 
+wx:
+  pay:
+    appId: wx547858f7453b5794
+    mchId: 1660506142
+    apiV3Key: BU3xYCQnMqQmsRfmERhNxJJAX9eCN4b6
+    certSerialNo: 3CBF9446C05C2E72B6EC4A9C3CA6A81E5150ADD4
+    privateKeyPath: /Users/xiqisen/IdeaProjects/palettepet-mall-springboot/src/main/resources/palette/apiclient_key.pem
+    privateCertPath: /Users/xiqisen/IdeaProjects/palettepet-mall-springboot/src/main/resources/palette/apiclient_cert.pem

@@ -75,6 +75,18 @@
         </dependency>
 
         <dependency>
+            <groupId>com.github.binarywang</groupId>
+            <artifactId>weixin-java-pay</artifactId>
+            <version>4.6.0</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>qrcode-utils</artifactId>
+                    <groupId>com.github.binarywang</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>RELEASE</version>
